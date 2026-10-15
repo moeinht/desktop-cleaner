@@ -1,54 +1,27 @@
-def calculate(a, b, operation):
-    if operation == 1:
-        symbol = "+"
-        calculation = a + b
-    elif operation == 2:
-        symbol = "-"
-        calculation = a - b
-    elif operation == 3:
-        symbol = "*"
-        calculation = a * b
-    elif operation == 4:
-        if b == 0:
-            raise ZeroDivisionError("Cannot divide by zero.")
-        symbol = "/"
-        calculation = a / b
-    else:
-        raise ValueError("Invalid operation. Choose 1, 2, 3, or 4.")
+import collections
+import re
 
-    return calculation, f"{a} {symbol} {b} = {calculation}"
+pattern = r"^(\d{4}-\d{2}-\d{2})\s+(\d{2}:\d{2}:\d{2})\s+(INFO|ERROR|WARNING)\s+(.*)$"
 
 
-def getCalculationInputs():
-    a = float(input("Enter the first number: "))
-    b = float(input("Enter the second number: "))
+def analyzer(file_path):
+    data = collections.defaultdict(list)
 
-    print("\nChoose an operation:")
-    print("1. Addition (+)")
-    print("2. Subtraction (-)")
-    print("3. Multiplication (*)")
-    print("4. Division (/)")
+    with open(file_path) as file:
+        reader = file.readlines()
 
-    operation = int(input("Enter your choice (1-4): "))
+        for line in reader:
+            match = re.match(pattern, line)
 
-    return a, b, operation
+            if not match is None:
+                date, time, request_type, description = match.groups()
+                data[request_type].append(match.group(4))
+
+    for log_type, messages in data.items():
+        print(f"{log_type}:")
+        for message in messages:
+            print(f"  - {message}")
 
 
-while True:
-    try:
-        a, b, operation = getCalculationInputs()
-
-        result, textOpration = calculate(a, b, operation)
-        print(f"{textOpration}")
-
-    except ValueError as error:
-        print(f"Input error: {error}")
-
-    except ZeroDivisionError as error:
-        print(f"Math error: {error}")
-
-    again = input("\nCalculate again? (y/n): ").strip().lower()
-
-    if again != "y":
-        print("Goodbye!")
-        break
+if __name__ == "__main__":
+    analyzer("./server.log")
