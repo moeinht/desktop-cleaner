@@ -8,17 +8,18 @@ def analyzer(file_path):
     data = collections.defaultdict(list)
 
     with open(file_path) as file:
-        reader = file.readlines()
-
-        for line in reader:
+        for line in file:
+            print(line)
+            line = line.strip()
+            print(line)
             match = re.match(pattern, line)
 
             if not match is None:
-                date, time, request_type, description = match.groups()
-                data[request_type].append(match.group(4))
+                _, _, request_type, description = match.groups()
+                data[request_type].append(description)
 
     for log_type, messages in data.items():
-        print(f"{log_type}:")
+        print(f"{log_type}: ")
         for message in messages:
             print(f"  - {message}")
 
