@@ -37,11 +37,11 @@ class FileHandler(FileSystemEventHandler):
 
             category = get_file_category(str(file_path))
 
-            if category == None:
+            if category is None:
                 logging.info("Unknown file: %s", file_path.name)
                 return
 
-            file_organizer(file_path, category)
+            file_organizer(str(file_path), category)
 
 
 def watch_directory(directory: str) -> None:
