@@ -1,6 +1,7 @@
 import logging
 from pathlib import Path
 
+from scanner import scan_directory
 from watcher import watch_directory
 
 
@@ -12,19 +13,20 @@ def main():
         print("Error: Directory path cannot be empty.")
         return
 
-    path = Path().home() / source_input
-    path = path.resolve()
+    directory = Path().home() / source_input
+    directory = directory.resolve()
 
-    if not path.exists():
-        print(f"Error: Directory does not exist: {path}")
+    if not directory.exists():
+        print(f"Error: Directory does not exist: {directory}")
         return
 
-    if not path.is_dir():
-        print(f"Error: Path is not a directory: {path}")
+    if not directory.is_dir():
+        print(f"Error: Path is not a directory: {directory}")
         return
 
     try:
-        watch_directory(str(path))
+        scan_directory(str(directory))
+        watch_directory(str(directory))
     except OSError:
         logging.exception("Failed to start the file watcher.")
         print("Could not start watching this directory.")

@@ -7,6 +7,8 @@ FILE_CATEGORIES = {
     ".png": "Images",
     ".gif": "Images",
     ".webp": "Images",
+    ".heic": "Images",
+    ".ico": "Images",
     # Documents
     ".pdf": "Documents",
     ".docx": "Documents",
@@ -14,6 +16,13 @@ FILE_CATEGORIES = {
     ".doc": "Documents",
     ".xlsx": "Documents",
     ".csv": "Documents",
+    ".md": "Documents",
+    ".json": "Documents",
+    ".yml": "Documents",
+    ".vtt": "Documents",
+    ".dict": "Documents",
+    ".localized": "Documents",
+    ".sample": "Documents",
     # Videos
     ".mp4": "Videos",
     ".mov": "Videos",
@@ -28,6 +37,17 @@ FILE_CATEGORIES = {
     ".7z": "Archives",
     ".tar": "Archives",
     ".gz": "Archives",
+    # Disk Images and Packages
+    ".dmg": "Installers",
+    # Source Code and Development
+    ".lua": "Code",
+    ".rb": "Code",
+    ".go": "Code",
+    ".mod": "Code",
+    ".sum": "Code",
+    ".scm": "Code",
+    ".sh": "Scripts",
+    ".vim": "Code",
 }
 
 
