@@ -5,6 +5,7 @@ from pathlib import Path
 from watchdog.events import FileSystemEvent, FileSystemEventHandler
 from watchdog.observers import Observer
 
+from rules import get_file_category
 from scanner import wait_until_ready
 
 logging.basicConfig(
@@ -32,6 +33,14 @@ class FileHandler(FileSystemEventHandler):
             logging.info("New file is not ready: %s", file_path.name)
         else:
             logging.info("New file is  ready: %s", file_path.name)
+
+            category = get_file_category(str(file_path))
+
+            if category == None:
+                logging.info("Unknown file: %s", file_path.name)
+                return
+
+            print(category)
 
 
 def watch_directory(directory: str) -> None:
