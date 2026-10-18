@@ -5,6 +5,7 @@ from pathlib import Path
 from watchdog.events import FileSystemEvent, FileSystemEventHandler
 from watchdog.observers import Observer
 
+from organizer import file_organizer
 from rules import get_file_category
 from scanner import wait_until_ready
 
@@ -40,7 +41,7 @@ class FileHandler(FileSystemEventHandler):
                 logging.info("Unknown file: %s", file_path.name)
                 return
 
-            print(category)
+            file_organizer(file_path, category)
 
 
 def watch_directory(directory: str) -> None:
